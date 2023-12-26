@@ -17,7 +17,7 @@ This project showcases a frontend application built using React, TypeScript, and
 1. **Clone the Repository**
     ```bash
     git clone https://github.com/sulaimanwebdev/tech-test
-    cd payouts-frontend-app
+    cd tech-test
     ```
 
 2. **Install Dependencies**
