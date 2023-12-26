@@ -10,8 +10,8 @@ const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  white-space: nowrap; /* Apply white-space: nowrap to prevent content wrapping */
-  overflow-x: auto; /* Add overflow-x: auto for horizontal scroll */
+  white-space: nowrap;
+  overflow-x: auto;
 `;
 
 const TableHeader = styled.th`
@@ -82,7 +82,6 @@ const GreenBox = styled.div`
   border-radius: 4px;
 `;
 
-
 // Function to format date and time
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -109,16 +108,33 @@ const Payouts: React.FC = () => {
   const [payouts, setPayouts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://theseus-staging.lithium.ventures/api/v1/analytics/tech-test/payouts');
+        let url = 'https://theseus-staging.lithium.ventures/api/v1/analytics/tech-test/payouts';
+
+        // Check if search term exists, then modify the URL
+        if (searchTerm) {
+          url = `https://theseus-staging.lithium.ventures/api/v1/analytics/tech-test/search?query=${searchTerm}`;
+        }
+
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Failed to fetch');
         }
         const data = await response.json();
-        setPayouts(data.data);
+
+        // Check if the response contains 'data' (or adjust according to the actual structure)
+        const fetchedPayouts = data.data ? data.data : data;
+
+        if (fetchedPayouts.length === 0 && searchTerm) {
+          setError('No user found or the user does not exist');
+        } else {
+          setError(null);
+          setPayouts(fetchedPayouts); // Set payouts based on the fetched data
+        }
       } catch (err: any) {
         setError(err.message || 'Failed to fetch payouts');
       } finally {
@@ -126,7 +142,12 @@ const Payouts: React.FC = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [searchTerm]); // Trigger the effect on search term change
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSearchTerm(value);
+  };
 
   return (
     <Container>
@@ -134,6 +155,12 @@ const Payouts: React.FC = () => {
       <FlexContainer>
         <GreenBox />
         <Subtitle>Payout History</Subtitle>
+        <input
+          type="text"
+          placeholder="Search by username"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
       </FlexContainer>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}

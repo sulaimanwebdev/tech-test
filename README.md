@@ -1,28 +1,40 @@
-# About
+# Payouts Frontend Application
 
-## Tech Test Brief
+## Overview
+This project showcases a frontend application built using React, TypeScript, and Styled Components. It presents a user interface to display payout history fetched from an API endpoint. The application allows users to search for payouts based on various criteria, including usernames.
 
-### Overview
-This project involves the development of a front-end application using React.js combined with TypeScript. The application closely follows the designs provided in the Figma file. It's crucial that Styled Components are used for styling purposes.
+## Technical Choices
+- **Framework:** React
+- **Type Checking:** TypeScript
+- **Styling:** Utilizes Styled Components for consistent and maintainable styling across components.
 
-### Technical Requirements
+## Application Features
+- Fetches payout data from the provided API endpoints.
+- Implements search functionality enabling users to search for payouts based on username.
+- Renders payout history in a table format, adhering to the designs in the provided Figma file.
 
-#### General
-- Developed using TypeScript.
-- Utilization of Styled Components for styling, ensuring alignment with the Figma designs.
-- Flexibility to make slight design alterations. For instance, adding a column for usernames.
-- Implementation of pagination functionality for navigating through payouts. Adjustments to designs to accommodate this feature are encouraged.
+## How to Run the Application
+1. **Clone the Repository**
+    ```bash
+    git clone https://github.com/sulaimanwebdev/tech-test
+    cd payouts-frontend-app
+    ```
 
-#### API Integration
-Integration with an existing API involves interacting with the following endpoint:
+2. **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-##### Payouts Endpoint
-- Endpoint: `https://theseus-staging.lithium.ventures/api/v1/analytics/tech-test/payouts`
-- Method: GET
-- Description: Retrieves a list of payouts, including fields such as `dateAndTime`, `status`, `value`, and `username`. Additionally, metadata containing pagination details is available.
+3. **Run the Application**
+    ```bash
+    npm start
+    ```
 
-### Evaluation Criteria
-- Adherence to Figma file designs.
-- Proper usage of TypeScript and Styled Components.
-- Attention to detail in implementing various functionalities.
-- Implementing optimizations to enhance user experience.
+## Access the Application
+Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+
+## Approach and Considerations
+- **Design Adherence:** Implemented the user interface as specified in the provided Figma file to ensure consistency and visual alignment.
+- **TypeScript & Styled Components:** Leveraged TypeScript for type safety and Styled Components for consistent, responsive, and easily maintainable styling.
+- **Error Handling:** Implemented error messages for scenarios where the API fetch fails or no user is found based on the search criteria.
+- **Optimization:** Focused on optimizing user experience while ensuring performance in the search functionality.
